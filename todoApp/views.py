@@ -16,7 +16,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def initialize_user(self, request):
-        user_id = uuid.uuid4()  # Generate a new user_id
+        user_id = uuid.uuid4()  
         default_categories = ["Work", "Personal", "Shopping"]
 
         for category_name in default_categories:

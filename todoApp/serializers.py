@@ -7,7 +7,7 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = '__all__'
         
-class TaskSerializer(erializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
