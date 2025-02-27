@@ -24,5 +24,5 @@ class Task(models.Model):
         default='moyen'
     )  
     
-    def __srt__(self):
+    def __str__(self):
         return self.title
