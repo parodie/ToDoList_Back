@@ -1,9 +1,10 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, serializers
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from .models import Category, Task
 from .serializers import CategorySerializer, TaskSerializer
 import uuid
+
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -20,7 +21,9 @@ class CategoryViewSet(viewsets.ModelViewSet):
         return Category.objects.filter(user_id=user_id)
     
     def perform_create(self, serializer):
-        user_id = self.request.headers.get('user_id')
+        user_id = self.request.query_params.get('user_id')
+        if not user_id:
+            raise serializers.ValidationError({"error": "user_id header is required"})
         serializer.save(user_id=user_id)
 
     # @action decorator: Creates a custom endpoint beyond the standard CRUD operations.
@@ -46,5 +49,7 @@ class TaskViewSet(viewsets.ModelViewSet):
         return Task.objects.filter(user_id=user_id)
 
     def perform_create(self, serializer):
-        user_id = self.request.headers.get('user_id')
+        user_id = self.request.query_params.get('user_id')
+        if not user_id:
+            raise serializers.ValidationError({"error": "user_id header is required"})
         serializer.save(user_id=user_id)
