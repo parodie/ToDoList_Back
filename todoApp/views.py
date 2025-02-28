@@ -15,7 +15,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
     # get_queryset(): Overrides the default queryset to filter categories by user_id.
     def get_queryset(self):
-        user_id = self.request.headers.get('user_id')
+        user_id = self.request.query_params.get('user_id')
+        print(f"User ID from query params: {user_id}")  
         return Category.objects.filter(user_id=user_id)
     
     def perform_create(self, serializer):
@@ -26,13 +27,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
     # detail=False: Makes this a collection-level action (operates on multiple records).
     @action(detail=False, methods=['post'])
     def initialize_user(self, request):
-        user_id = uuid.uuid4()  
+        user_id = str(uuid.uuid4()  )
         default_categories = ["Work", "Personal", "Shopping"]
 
         for category_name in default_categories:
             Category.objects.get_or_create(user_id=user_id, name=category_name)
 
-        return Response({"user_id": str(user_id)})
+        return Response({"user_id": user_id})
     
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -40,7 +41,8 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
 
     def get_queryset(self):
-        user_id = self.request.headers.get('user_id')
+        user_id = self.request.query_params.get('user_id')
+        print(f"User ID from query params: {user_id}")  
         return Task.objects.filter(user_id=user_id)
 
     def perform_create(self, serializer):
