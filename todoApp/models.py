@@ -20,7 +20,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     priority = models.CharField(
         max_length=20,
-        choices=[('faible', 'Faible'), ('moyen', 'Moyen'), ('élevé', 'Élevé')],        
+        choices=[('faible', 'Faible'), ('moyen', 'Moyen'), ('eleve', 'Elevé')],        
         default='moyen'
     )  
     
