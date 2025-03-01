@@ -60,7 +60,8 @@ MIDDLEWARE = [
 ]
 
 # Allow all origins (for development only)
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all domains (for debugging, restrict in production)
+CORS_ALLOW_HEADERS = ["*"]
 
 ROOT_URLCONF = 'backend.urls'
 
