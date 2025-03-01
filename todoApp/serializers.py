@@ -11,3 +11,6 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
+        extra_kwargs = {
+            'user_id': {'required': False}  
+        }
